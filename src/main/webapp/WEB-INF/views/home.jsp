@@ -49,39 +49,39 @@
 <%--        <input type="submit" value = "길찾기">--%>
 <%--    </form>--%>
 
-    <form>
+    <form action="/findRoad" method="get">
         <div class="form-group">
             출발지
-            <input type="text" class="form-control" id="startLatitude" placeholder="출발지 위도를 입력하세요">
-            <input type="text" class="form-control" id="startLongitude" placeholder="출발지 경도를 입력하세요">
+            <input type="text" class="form-control" name="startLatitude" placeholder="출발지 위도를 입력하세요">
+            <input type="text" class="form-control" name="startLongitude" placeholder="출발지 경도를 입력하세요">
             도착지
-            <input type="text" class="form-control" id="endLatitude" placeholder="도착지 위도를 입력하세요">
-            <input type="text" class="form-control" id="endLongitude" placeholder="도착지 경도를 입력하세요">
+            <input type="text" class="form-control" name="endLatitude" placeholder="도착지 위도를 입력하세요">
+            <input type="text" class="form-control" name="endLongitude" placeholder="도착지 경도를 입력하세요">
         </div>
         <h2>피하고 싶은 길 설정</h2>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="질문1"> 질문1
+                <input type="checkbox" name="preference[]" value="질문1"> 질문1
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="질문2"> 질문2
+                <input type="checkbox" name="preference[]" value="질문2"> 질문2
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="질문3"> 질문3
+                <input type="checkbox" name="preference[]" value="질문3"> 질문3
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="질문4"> 질문4
+                <input type="checkbox" name="preference[]" value="질문4"> 질문4
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="질문5"> 질문5
+                <input type="checkbox" name="preference[]" value="질문5"> 질문5
             </label>
         </div>
         <button type="submit" class="btn btn-default">길찾기</button>
