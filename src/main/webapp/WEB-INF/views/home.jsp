@@ -36,27 +36,36 @@
             padding-top: 50px;
         }
 
+        #navbar {
+            height: 50px;
+            width: 100%;
+            background: #262626;
+            color: white;
+            font-weight: bolder;
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
     </style>
 </head>
 <body>
-<%--    <form action="" method = "get">--%>
-<%--        <p>--%>
-<%--            <input type="text" name = "start" placeholder="출발지를 입력해주세요">--%>
-<%--        </p>--%>
-<%--        <p>--%>
-<%--            <input type="text" name = "end" placeholder="도착지를 입력해주세요">--%>
-<%--        </p>--%>
-<%--        <input type="submit" value = "길찾기">--%>
-<%--    </form>--%>
-
+    <div id="navbar">security map</div>
     <form action="/findRoad" method="get">
         <div class="form-group">
-            출발지
-            <input type="text" class="form-control" name="startLatitude" placeholder="출발지 위도를 입력하세요">
-            <input type="text" class="form-control" name="startLongitude" placeholder="출발지 경도를 입력하세요">
-            도착지
-            <input type="text" class="form-control" name="endLatitude" placeholder="도착지 위도를 입력하세요">
-            <input type="text" class="form-control" name="endLongitude" placeholder="도착지 경도를 입력하세요">
+            <div class="start">
+                출발지
+                <input type="text" class="form-control" name="startLatitude" placeholder="출발지 위도를 입력하세요">
+                <input type="text" class="form-control" name="startLongitude" placeholder="출발지 경도를 입력하세요">
+            </div>
+        </div>
+            <div class="end">
+                도착지
+                <input type="text" class="form-control" name="endLatitude" placeholder="도착지 위도를 입력하세요">
+                <input type="text" class="form-control" name="endLongitude" placeholder="도착지 경도를 입력하세요">
+            </div>
         </div>
         <h2>피하고 싶은 길 설정</h2>
         <div class="checkbox">
@@ -88,7 +97,7 @@
     </form>
 
 
-    <div id="map" style="width:80%;height:100%;float: right"></div>
+    <div id="map" style="width:80%;height:100%;float: right";></div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=09f66f08e2c5ec1fa0fcd57b2d8d6582"></script>
     <script>
         var container = document.getElementById('map');
