@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Dijkstra {
 
-    private int n;
+    private final int n;
     private final double[][] weightList; //2차원 배열 weight에 각 꼭지점의 가중치를 저장
     private final Long[] saveRoute;
     private final Set<Long> vertexSet = new HashSet<>();
@@ -12,6 +12,7 @@ public class Dijkstra {
 
     public Dijkstra(List<Link> linkList) {
         super();
+
         for (Link link : linkList) {
             Node node1 = link.getNode1();
             Node node2 = link.getNode2();
@@ -22,23 +23,22 @@ public class Dijkstra {
         // set을 list로 변환
         vertexList = new ArrayList<>(vertexSet);
 
-        // n 주입
+        // n 주입 총 꼭지점의 개수
         this.n = vertexList.size();
         weightList = new double[n][n];
         saveRoute = new Long[n];
 
+        // node_id를 배열에 저장된 index번호로 바꿔서 weight값을 이차원 배열에 저장한다.
         for (Link link : linkList) {
             int x1 = longToInt(link.getNode1().getId());
             int x2 = longToInt(link.getNode2().getId());
 
             weightList[x1][x2] = link.getWeight();
             weightList[x2][x1] = link.getWeight();
-
         }
-
-
     }
 
+    // node의 id를 index의 번호로 바꿔준다.
     public int longToInt(Long l) {
 
         // id값인 Long을 int형으로 바꿔준다.
@@ -50,7 +50,9 @@ public class Dijkstra {
 
     }
 
-    public void algorithm(Node start, Node end) {
+    // 알고리즘 돌리면 출발지부터 도착지까지의 node ID를 담은 list를 반환.
+    public ArrayList<Long> algorithm(Node start, Node end) {
+
         boolean[] visited = new boolean[n]; //각 꼭지점의 방문 여부
         double[] distance = new double[n]; //시작 꼭지점에서부터 각 꼭지점까지의 거리
 
@@ -80,9 +82,7 @@ public class Dijkstra {
                 saveRoute[i] = vertexList.get(startIndex); //★시작 꼭지점과 인접한 꼭지점의 경로에 시작 꼭지점을 저장
             }
         }
-
         for(int i=0; i<n-1; i++) {
-
             double minDistance = Integer.MAX_VALUE; //최단거리 minDistance에 일단 가장 큰 정수로 저장하고,
             int minVertex = -1; //그 거리값이 있는 인덱스 minVertex에 -1을 저장해둔다.
             // 방문하지 않고 거리가 가장 짧은 거리인 nodeIndex를 구한다.
@@ -95,10 +95,7 @@ public class Dijkstra {
                     }
                 }
             }
-
             visited[minVertex] = true; //위의 반복문을 통해 도출된 가장 가까운 꼭지점에 방문 표시
-
-
             for(int j=0; j<n; j++) {
                 //방문하지 않았고 minVertex와의 가중치가 존재하는(minVertex에서 연결된) 꼭지점이라면
                 if(!visited[j] && weightList[minVertex][j]!=0) {
@@ -109,33 +106,32 @@ public class Dijkstra {
                     }
                 }
             }
-
             if (minVertex == endIndex) {
                 break;
             }
-
         }
 
         //시작 꼭지점부터 특정 꼭지점까지의 거리 출력
-        System.out.println("saveRoute = " + Arrays.toString(saveRoute));
-        System.out.println("시작 꼭지점 " + start + "부터 꼭지점 " + vertexList.get(endIndex) + "까지의 거리 :" + distance[endIndex]);
+//        System.out.println("saveRoute = " + Arrays.toString(saveRoute));
+//        System.out.println("시작 꼭지점 " + start + "부터 꼭지점 " + vertexList.get(endIndex) + "까지의 weight :" + distance[endIndex]);
+//
+//        System.out.println("==================================");
 
-        System.out.println("==================================");
-
+        // 목적지 index를 담기 위해 tempIndex 설정.
         int tempIndex = endIndex;
-        ArrayList<Long> arrayList= new ArrayList<Long>();
+
+        // 경로를 저장할 arrayList 생성
+        ArrayList<Long> passList= new ArrayList<Long>();
         while (tempIndex != startIndex) {
 
-            arrayList.add(vertexList.get(tempIndex));
+            passList.add(vertexList.get(tempIndex));
             tempIndex = longToInt(saveRoute[tempIndex]);
         }
-        arrayList.add(vertexList.get(startIndex));
-        System.out.println("arrayList.size() = " + arrayList.size());
-        System.out.println("arrayList.get(1) = " + arrayList.get(1));
+        // 마지막에 시작 index의 값을 집어넣어주어야 한다.
+        passList.add(vertexList.get(startIndex));
+        Collections.reverse(passList);
+        return passList;
 
-        for (int i = arrayList.size()-1; i >= 0; i--) {
-            System.out.println(arrayList.size() - i + "번째 경로는 "  + arrayList.get(i) + "입니다.");
-        }
 
 
 
@@ -152,8 +148,6 @@ public class Dijkstra {
 //            StringBuilder sb = new StringBuilder(route);
 //            System.out.println(sb.reverse() + String.valueOf(vertexList.get(i)));
 //        }
-
-
 
     }
 
