@@ -51,14 +51,14 @@ public class FindRoadTest {
     void setUp() {
         // 노드 8개 생성
         // 각각 id와 위도 경도를 가지고 있다.
-        a = new Node(1, 37.484406, 126.929628);
-        b = new Node(2, 37.484407, 126.929630);
-        c = new Node(3, 37.484408, 126.929637);
-        d = new Node(4, 37.484409, 126.929636);
-        e = new Node(5, 37.484410, 126.929633);
-        f = new Node(6, 37.484411, 126.929625);
-        g = new Node(7, 37.484412, 126.929620);
-        z = new Node(8, 37.488830, 126.922804);
+        a = new Node(11, 37.484406, 126.929628);
+        b = new Node(22, 37.484407, 126.929630);
+        c = new Node(33, 37.484408, 126.929637);
+        d = new Node(44, 37.484409, 126.929636);
+        e = new Node(55, 37.484410, 126.929633);
+        f = new Node(66, 37.484411, 126.929625);
+        g = new Node(77, 37.484412, 126.929620);
+        z = new Node(88, 37.488830, 126.922804);
 
         // List에 추가
         // 출발지와 도착지를 기준으로 node추가한것
@@ -113,8 +113,9 @@ public class FindRoadTest {
     @Test
     @Transactional
     void 다익스트라_링크_입력_확인() {
+
         Dijkstra dijkstra = new Dijkstra(linkList);
-        dijkstra.algorithm(a,g);
+        ArrayList<Long> passList = dijkstra.algorithm(a, g);
     }
 
 
