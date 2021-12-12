@@ -33,11 +33,15 @@
 
             var map = new kakao.maps.Map(container, options);
 
+            var start = new kakao.maps.LatLng(37.484406, 126.929628);
+            var mid = new kakao.maps.LatLng(37.484767, 126.928876);
+            var end = new kakao.maps.LatLng(37.487694, 126.928039);
+
             // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
             var linePath = [
-                new kakao.maps.LatLng(37.484406, 126.929628),
-                new kakao.maps.LatLng(37.484767, 126.928876),
-                new kakao.maps.LatLng(37.487694, 126.928039)
+                start,
+                mid,
+                end
             ];
 
             // 지도에 표시할 선을 생성합니다
@@ -51,6 +55,21 @@
 
             // 지도에 선을 표시합니다
             polyline.setMap(map);
+
+            // 마커 생성
+            var marker1 = new kakao.maps.Marker({
+                position: start
+            });
+            var marker2 = new kakao.maps.Marker({
+                position: mid
+            });
+            var marker3 = new kakao.maps.Marker({
+                position: end
+            });
+
+            marker1.setMap(map);
+            marker2.setMap(map);
+            marker3.setMap(map);
         </script>
     </body>
 </html>
