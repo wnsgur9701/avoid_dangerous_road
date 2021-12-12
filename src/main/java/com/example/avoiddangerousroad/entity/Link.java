@@ -1,19 +1,29 @@
 package com.example.avoiddangerousroad.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 public class Link {
 
+    @Id
     private long id;
     private double weight;
-    private Node node1;
-    private Node node2;
 
-    public Link(long id, Node node1,double weight, Node node2) {
-        this.id = id;
-        this.weight = weight;
-        this.node1 = node1;
-        this.node2 = node2;
-    }
+    @OneToMany(mappedBy = "link")
+    private List<SubNode> subNodeList = new ArrayList<>();
+
 }
