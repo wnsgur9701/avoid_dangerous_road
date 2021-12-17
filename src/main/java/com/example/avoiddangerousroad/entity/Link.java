@@ -22,6 +22,7 @@ public class Link {
     @Id
     private long id;
     private double weight;
+    private double distance;
 
     @OneToMany(mappedBy = "link")
     private List<SubNode> subNodeList = new ArrayList<>();
