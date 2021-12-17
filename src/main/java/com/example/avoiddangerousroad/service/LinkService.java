@@ -37,10 +37,12 @@ public class LinkService {
                 long node1_id = Long.parseLong(data[1]);
                 long node2_id = Long.parseLong(data[2]);
                 double weight = Double.parseDouble(data[3]);
+                double distance = Double.parseDouble(data[4]);
 
                 Link link = new Link();
                 link.setId(id);
                 link.setWeight(weight);
+                link.setDistance(distance);
                 linkRepository.save(link);
 
                 Node node1 = nodeRepository.findById(node1_id)
