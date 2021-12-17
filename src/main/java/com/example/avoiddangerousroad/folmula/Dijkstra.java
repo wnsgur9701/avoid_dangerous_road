@@ -1,7 +1,7 @@
-package com.example.avoiddangerousroad.entity;
+package com.example.avoiddangerousroad.folmula;
 
 import com.example.avoiddangerousroad.DTO.LinkDTO;
-import com.example.avoiddangerousroad.controller.HomeController;
+import com.example.avoiddangerousroad.entity.Node;
 
 import java.util.*;
 
