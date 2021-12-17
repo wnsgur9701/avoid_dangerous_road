@@ -1,5 +1,8 @@
 package com.example.avoiddangerousroad.entity;
 
+import com.example.avoiddangerousroad.DTO.LinkDTO;
+import com.example.avoiddangerousroad.controller.HomeController;
+
 import java.util.*;
 
 public class Dijkstra {
@@ -10,31 +13,31 @@ public class Dijkstra {
     private final Set<Long> vertexSet = new HashSet<>();
     private final List<Long> vertexList;
 
-    public Dijkstra(List<Link> linkList) {
+    public Dijkstra(List<LinkDTO> linkDTOList) {
         super();
 
-        for (Link link : linkList) {
-            Node node1 = link.getNode1();
-            Node node2 = link.getNode2();
+        for (LinkDTO linkDTO : linkDTOList) {
+            Node node1 = linkDTO.getNode1();
+            Node node2 = linkDTO.getNode2();
             vertexSet.add(node1.getId());
             vertexSet.add(node2.getId());
         }
 
         // set을 list로 변환
         vertexList = new ArrayList<>(vertexSet);
-
+        System.out.println("vertexList.size() = " + vertexList.size());
         // n 주입 총 꼭지점의 개수
-        this.n = vertexList.size();
+        n = vertexList.size();
         weightList = new double[n][n];
         saveRoute = new Long[n];
 
         // node_id를 배열에 저장된 index번호로 바꿔서 weight값을 이차원 배열에 저장한다.
-        for (Link link : linkList) {
-            int x1 = longToInt(link.getNode1().getId());
-            int x2 = longToInt(link.getNode2().getId());
+        for (LinkDTO linkDTO: linkDTOList) {
+            int x1 = longToInt(linkDTO.getNode1().getId());
+            int x2 = longToInt(linkDTO.getNode2().getId());
 
-            weightList[x1][x2] = link.getWeight();
-            weightList[x2][x1] = link.getWeight();
+            weightList[x1][x2] = linkDTO.getWeight();
+            weightList[x2][x1] = linkDTO.getWeight();
         }
     }
 
@@ -53,6 +56,7 @@ public class Dijkstra {
     // 알고리즘 돌리면 출발지부터 도착지까지의 node ID를 담은 list를 반환.
     public ArrayList<Long> algorithm(Node start, Node end) {
 
+        System.out.println("n = " + n);
         boolean[] visited = new boolean[n]; //각 꼭지점의 방문 여부
         double[] distance = new double[n]; //시작 꼭지점에서부터 각 꼭지점까지의 거리
 
@@ -65,6 +69,9 @@ public class Dijkstra {
 
         int startIndex = longToInt(start.getId()); //문자열로 입력된 시작 꼭지점을 해당되는 숫자 인덱스 startIndex로 바꾸고
         int endIndex = longToInt(end.getId()); //문자열로 입력된 시작 꼭지점을 해당되는 숫자
+
+        System.out.println("startIndex = " + startIndex);
+        System.out.println("endIndex = " + endIndex);
 
         distance[startIndex] = 0;
         visited[startIndex] = true; //방문 꼭지점이므로 true값 저장
@@ -82,9 +89,13 @@ public class Dijkstra {
                 saveRoute[i] = vertexList.get(startIndex); //★시작 꼭지점과 인접한 꼭지점의 경로에 시작 꼭지점을 저장
             }
         }
+
+
+
         for(int i=0; i<n-1; i++) {
             double minDistance = Integer.MAX_VALUE; //최단거리 minDistance에 일단 가장 큰 정수로 저장하고,
             int minVertex = -1; //그 거리값이 있는 인덱스 minVertex에 -1을 저장해둔다.
+
             // 방문하지 않고 거리가 가장 짧은 거리인 nodeIndex를 구한다.
             for(int j=0; j<n; j++) {
                 //방문하지 않았고 거리를 갱신한 꼭지점 중에서 가장 가까운 거리와 가장 가까운 꼭지점을 구한다.
