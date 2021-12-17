@@ -44,8 +44,8 @@ public class NodeServiceTest {
 
         // 164785 끝점
         // 1239
-        double startLatitude = 35.21412803;
-        double startLongitude = 129.6691841;
+        double startLatitude = 37.48695301;
+        double startLongitude = 126.933479;
 
         // 827
         double endLatitude = 35.21530327;
