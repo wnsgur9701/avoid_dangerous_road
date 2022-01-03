@@ -21,8 +21,19 @@ public class Link {
 
     @Id
     private long id;
-    private double weight;
     private double distance;
+    private int stores;
+    private int light;
+    private int roadType;
+    private double averagePeople;
+    private int cctv;
+    private int apartment;
+    private int class2Place;
+    private int office;
+    private int amusementPlace;
+    private double weight;
+
+
 
     @OneToMany(mappedBy = "link")
     private List<SubNode> subNodeList = new ArrayList<>();

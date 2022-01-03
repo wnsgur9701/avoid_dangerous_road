@@ -8,14 +8,14 @@ import java.util.*;
 public class Dijkstra {
 
     private final int n;
-    private final double[][] weightList; //2차원 배열 weight에 각 꼭지점의 가중치를 저장
+    private final double[][] weightList;
     private final Long[] saveRoute;
-    private final Set<Long> vertexSet = new HashSet<>();
     private final List<Long> vertexList;
 
     public Dijkstra(List<LinkDTO> linkDTOList) {
         super();
 
+        Set<Long> vertexSet = new HashSet<>();
         for (LinkDTO linkDTO : linkDTOList) {
             Node node1 = linkDTO.getNode1();
             Node node2 = linkDTO.getNode2();

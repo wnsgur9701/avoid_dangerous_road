@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public String home() {
-        return "home";
+        return "home.jsp";
     }
 
 
@@ -49,7 +48,6 @@ public class HomeController {
         double startLongitude = Double.parseDouble(request.getParameter("startLongitude"));
         double endLatitude = Double.parseDouble(request.getParameter("endLatitude"));
         double endLongitude = Double.parseDouble(request.getParameter("endLongitude"));
-        String[] preferences = request.getParameterValues("preference[]");
 
         List<Link> all = linkRepository.findAll();
         List<LinkDTO> linkWeightDTOList = new ArrayList<>();
@@ -115,7 +113,57 @@ public class HomeController {
                 }
             }
         }
+        // 최단 경로에 표시 할 변수들
+        int shortestAllStores = 0;
+        int shortestAllLight = 0;
+        int shortestAllCCTV = 0;
+        int shortestAllApartment = 0;
+        int shortestAllClass2Place = 0;
+        int shortestAllOffice = 0;
+        int shortestAllAmusementPlace = 0;
+        double shortestAverageWeight = 0;
 
+        // 추천 안심 경로에 표시 할 변수들
+        int secureAllStores = 0;
+        int secureAllLight = 0;
+        int secureAllCCTV = 0;
+        int secureAllApartment = 0;
+        int secureAllClass2Place = 0;
+        int secureAllOffice = 0;
+        int secureAllAmusementPlace = 0;
+        double secureAverageWeight = 0;
+
+        for (Link link : distanceLinkList) {
+            shortestAllStores += link.getStores();
+            shortestAllLight += link.getLight();
+            shortestAllCCTV += link.getCctv();
+            shortestAllApartment += link.getApartment();
+            shortestAllClass2Place += link.getClass2Place();
+            shortestAllOffice += link.getOffice();
+            shortestAllAmusementPlace += link.getAmusementPlace();
+            shortestAverageWeight += link.getWeight();
+        }
+
+        shortestAverageWeight = shortestAverageWeight / distanceLinkList.size();
+
+        RoadInformation shortestRoadInformation = new RoadInformation(shortestAllStores, shortestAllLight, shortestAllCCTV, shortestAllApartment,
+                shortestAllClass2Place, shortestAllOffice, shortestAllAmusementPlace, shortestAverageWeight);
+
+        for (Link link : weightLinkList) {
+            secureAllStores += link.getStores();
+            secureAllLight += link.getLight();
+            secureAllCCTV += link.getCctv();
+            secureAllApartment += link.getApartment();
+            secureAllClass2Place += link.getClass2Place();
+            secureAllOffice += link.getOffice();
+            secureAllAmusementPlace += link.getAmusementPlace();
+            secureAverageWeight += link.getWeight();
+        }
+
+        secureAverageWeight = secureAverageWeight / weightLinkList.size();
+
+        RoadInformation secureRoadInformation = new RoadInformation(secureAllStores, secureAllLight, secureAllCCTV, secureAllApartment,
+                secureAllClass2Place, secureAllOffice, secureAllAmusementPlace, secureAverageWeight);
 
         ArrayList<List<SubNode>> weightSubNodeLists = new ArrayList<List<SubNode>>();
         ArrayList<List<SubNode>> distanceSubNodeLists = new ArrayList<List<SubNode>>();
@@ -130,6 +178,9 @@ public class HomeController {
             List<SubNode> subNodeList = subNodeRepository.findAllByLink(link);
             distanceSubNodeLists.add(subNodeList);
         }
+        model.addAttribute("d", distanceLinkList.size());
+        model.addAttribute("weightLinkSize", weightSubNodeLists.size());
+        model.addAttribute("distanceLinkSize", distanceSubNodeLists.size());
         model.addAttribute("weightSubNodeLists", weightSubNodeLists);
         model.addAttribute("distanceSubNodeLists", distanceSubNodeLists);
         model.addAttribute("startNode", startNode);
@@ -138,6 +189,63 @@ public class HomeController {
         model.addAttribute("startLongitude", startLongitude);
         model.addAttribute("endLatitude", endLatitude);
         model.addAttribute("endLongitude", endLongitude);
-        return "findRoad";
+        model.addAttribute("shortestRoadInformation", shortestRoadInformation);
+        model.addAttribute("secureRoadInformation", secureRoadInformation);
+        return "findRoad.jsp";
+    }
+
+    public class RoadInformation {
+
+        int shortestAllStores;
+        int shortestAllLight;
+        int shortestAllCCTV;
+        int shortestAllApartment;
+        int shortestAllClass2Place;
+        int shortestAllOffice;
+        int shortestAllAmusementPlace;
+        double shortestAverageWeight;
+
+        public RoadInformation(int shortestAllStores, int shortestAllLight, int shortestAllCCTV, int shortestAllApartment, int shortestAllClass2Place, int shortestAllOffice, int shortestAllAmusementPlace, double shortestAverageWeight) {
+            this.shortestAllStores = shortestAllStores;
+            this.shortestAllLight = shortestAllLight;
+            this.shortestAllCCTV = shortestAllCCTV;
+            this.shortestAllApartment = shortestAllApartment;
+            this.shortestAllClass2Place = shortestAllClass2Place;
+            this.shortestAllOffice = shortestAllOffice;
+            this.shortestAllAmusementPlace = shortestAllAmusementPlace;
+            this.shortestAverageWeight = shortestAverageWeight;
+        }
+
+        public int getShortestAllStores() {
+            return shortestAllStores;
+        }
+
+        public int getShortestAllLight() {
+            return shortestAllLight;
+        }
+
+        public int getShortestAllCCTV() {
+            return shortestAllCCTV;
+        }
+
+        public int getShortestAllApartment() {
+            return shortestAllApartment;
+        }
+
+        public int getShortestAllClass2Place() {
+            return shortestAllClass2Place;
+        }
+
+        public int getShortestAllOffice() {
+            return shortestAllOffice;
+        }
+
+        public int getShortestAllAmusementPlace() {
+            return shortestAllAmusementPlace;
+        }
+
+        public double getShortestAverageWeight() {
+            return shortestAverageWeight;
+        }
     }
 }

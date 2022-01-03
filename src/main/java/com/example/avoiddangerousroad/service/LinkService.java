@@ -36,13 +36,33 @@ public class LinkService {
                 long id = Long.parseLong(data[0]);
                 long node1_id = Long.parseLong(data[1]);
                 long node2_id = Long.parseLong(data[2]);
-                double weight = Double.parseDouble(data[3]);
-                double distance = Double.parseDouble(data[4]);
+                double distance = Double.parseDouble(data[3]);
+                int stores = Integer.parseInt(data[4]);
+                int light = Integer.parseInt(data[5]);
+                int roadType = Integer.parseInt(data[6]);
+                double averagePeople = Double.parseDouble(data[7]);
+                int cctv = Integer.parseInt(data[8]);
+                int apartment = Integer.parseInt(data[9]);
+                int class2Place = Integer.parseInt(data[10]);
+                int office = Integer.parseInt(data[11]);
+                int amusementPlace = Integer.parseInt(data[12]);
+                double weight = Double.parseDouble(data[13]);
+
 
                 Link link = new Link();
                 link.setId(id);
-                link.setWeight(weight);
                 link.setDistance(distance);
+                link.setStores(stores);
+                link.setLight(light);
+                link.setRoadType(roadType);
+                link.setAveragePeople(averagePeople);
+                link.setCctv(cctv);
+                link.setApartment(apartment);
+                link.setClass2Place(class2Place);
+                link.setOffice(office);
+                link.setAmusementPlace(amusementPlace);
+                link.setWeight(weight);
+
                 linkRepository.save(link);
 
                 Node node1 = nodeRepository.findById(node1_id)
