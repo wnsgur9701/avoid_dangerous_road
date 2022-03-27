@@ -208,10 +208,10 @@
                     상세정보
                 </div>
                 <div class="specific-information-list">
-                    <div class="cctv">자연감시 시설(cctv, 편의점): 20개</div>
-                    <div class="light"> 가로등: 13개</div>
-                    <div class="secure-store">치안시설(안심벨, 경찰서): 0개</div>
-                    <div class="harmful-store">유해 업소(모텔, 성인오락): 1개</div>
+                    <div class="cctv">자연감시 시설(cctv, 편의점): ${avoid.cctv}개</div>
+                    <div class="light"> 가로등: ${avoid.light}개</div>
+                    <div class="secure-store">치안시설(안심벨, 경찰서): ${avoid.security}개</div>
+                    <div class="harmful-store">유해 업소(모텔, 성인오락): ${avoid.cctv}개</div>
                 </div>
             </div>
             <div class="sc-dPaNSN KQWTL" id="shortest" onclick="onClickShortest()">
@@ -225,10 +225,10 @@
                     상세정보
                 </div>
                 <div class="specific-information-list">
-                    <div class="cctv">자연감시 시설(cctv, 편의점): 13개</div>
-                    <div class="light"> 가로등: 2개</div>
-                    <div class="secure-store">치안시설(안심벨, 경찰서): 0개</div>
-                    <div class="harmful-store">유해 업소(모텔, 성인오락): 0개</div>
+                    <div class="cctv">자연감시 시설(cctv, 편의점): ${distance.cctv}개</div>
+                    <div class="light"> 가로등: ${distance.cctv}개</div>
+                    <div class="secure-store">치안시설(안심벨, 경찰서): ${distance.cctv}개</div>
+                    <div class="harmful-store">유해 업소(모텔, 성인오락): ${distance.cctv}개</div>
                 </div>
 
             </div>
@@ -278,24 +278,6 @@
 
             startPolyline.setMap(map);
             endPolyline.setMap(map);
-
-
-
-
-            // 마커 생성
-            // var marker1 = new kakao.maps.Marker({
-            //     position: start
-            // });
-            // var marker2 = new kakao.maps.Marker({
-            //     position: mid
-            // });
-            // var marker3 = new kakao.maps.Marker({
-            //     position: end
-            // });
-            //
-            // marker1.setMap(map);
-            // marker2.setMap(map);
-            // marker3.setMap(map);
 
             var startImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png', // 마커이미지의 주소입니다
                 startImageSize = new kakao.maps.Size(50, 45), // 마커이미지의 크기입니다
@@ -347,12 +329,7 @@
                     strokeStyle: 'solid' // 선의 스타일입니다
                 });
 
-                <%--subNodeList[loop] = {--%>
-                <%--    latitude: "${item.latitude}",--%>
-                <%--    longitude: "${item.longitude}"--%>
-                <%--}--%>
-                <%--loop++;--%>
-                // 지도에 선을 표시합니다
+
                 polyline_2.setMap(map);
                 </c:forEach>
 
@@ -367,16 +344,11 @@
                 var polyline_1 = new kakao.maps.Polyline({
                     path: linePath_1, // 선을 구성하는 좌표배열 입니다
                     strokeWeight: 6, // 선의 두께 입니다
-                    strokeColor: colorList[rand(1,5)], // 선의 색깔입니다
+                    strokeColor: colorList[${node.rank}], // 선의 색깔입니다
                     strokeOpacity: 0.9, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
                     strokeStyle: 'solid' // 선의 스타일입니다
                 });
 
-                <%--subNodeList[loop] = {--%>
-                <%--    latitude: "${item.latitude}",--%>
-                <%--    longitude: "${item.longitude}"--%>
-                <%--}--%>
-                <%--loop++;--%>
                 // 지도에 선을 표시합니다
                 polyline_1.setMap(map);
                 </c:forEach>
@@ -399,11 +371,7 @@
                     strokeOpacity: 0.9, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
                     strokeStyle: 'solid' // 선의 스타일입니다
                 });
-                <%--subNodeList[loop] = {--%>
-                <%--    latitude: "${item.latitude}",--%>
-                <%--    longitude: "${item.longitude}"--%>
-                <%--}--%>
-                <%--loop++;--%>
+
                 // 지도에 선을 표시합니다
                 polyline_1.setMap(map);
                 </c:forEach>
@@ -418,16 +386,11 @@
                 var polyline_2 = new kakao.maps.Polyline({
                     path: linePath_2, // 선을 구성하는 좌표배열 입니다
                     strokeWeight: 6, // 선의 두께 입니다
-                    strokeColor: colorList[rand(3,9)], // 선의 색깔입니다
+                    strokeColor: colorList[${node.rank}], // 선의 색깔입니다
                     strokeOpacity: 0.9, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
                     strokeStyle: 'solid' // 선의 스타일입니다
                 });
 
-                <%--subNodeList[loop] = {--%>
-                <%--    latitude: "${item.latitude}",--%>
-                <%--    longitude: "${item.longitude}"--%>
-                <%--}--%>
-                <%--loop++;--%>
                 // 지도에 선을 표시합니다
                 polyline_2.setMap(map);
                 </c:forEach>

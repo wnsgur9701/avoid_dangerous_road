@@ -46,7 +46,7 @@ public class LinkService {
                 int class2Place = Integer.parseInt(data[10]);
                 int office = Integer.parseInt(data[11]);
                 int amusementPlace = Integer.parseInt(data[12]);
-                double weight = Double.parseDouble(data[13]);
+                int weight = Integer.parseInt(data[13]);
 
 
                 Link link = new Link();
